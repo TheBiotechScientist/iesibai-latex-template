@@ -13,6 +13,8 @@
 *.blg
 *-blx.bib
 *.run.xml
+*.synctex.gz.sum.synctex
+*.xdv
 
 # Salida PDF (Descomentar si se prefiere NO subir los PDF generados)
 # *.pdf

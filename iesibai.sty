@@ -26,7 +26,6 @@
 
 % 5. Paquetes para Gráficos, Fondo y Espaciado
 \RequirePackage{graphicx}
-\graphicspath{{assets/}} % Ubicación de imágenes en la carpeta assets/
 \RequirePackage{eso-pic}
 \RequirePackage{setspace}
 \RequirePackage{metalogo}
@@ -71,7 +70,6 @@
 % 8. SISTEMA DE PORTADA CONFIGURABLE Y AUTOMÁTICA
 % ==============================================================================
 \RequirePackage{pgfkeys}
-
 % Definición de Variables y Valores por Defecto
 \pgfkeys{
   /iesibai/.cd,
@@ -86,8 +84,8 @@
   ubicacion/.initial={Estado, México},
   fecha/.initial={Septiembre, 2026},
   engine/.initial={Elaborado en \XeLaTeX},
-  logo/.initial={logo_iesibai.png},
-  fondo/.initial={redes_2.jpeg}
+  logo/.initial={assets/logo_iesibai.png},
+  fondo/.initial={assets/fondo_portada_redes_2.jpeg}
 }
 
 % Comandos auxiliares para leer/escribir variables
