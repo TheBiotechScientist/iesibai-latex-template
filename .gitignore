@@ -1,0 +1,21 @@
+# Archivos temporales de compilación TeX / LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Archivos de Biber / BibTeX
+*.bcf
+*.bbl
+*.blg
+*-blx.bib
+*.run.xml
+
+# Salida PDF (Descomentar si se prefiere NO subir los PDF generados)
+# *.pdf
+
+docs/
+producto_1.tex

@@ -1,0 +1,185 @@
+% !TEX root = producto_1.tex
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{iesibai}[2026/09/19 Estilo Institucional IES IBAI]
+
+% 1. Configuración de márgenes y tamaño de página
+\RequirePackage[letterpaper, margin=2.5cm]{geometry}
+
+% 2. Configuración del idioma y traducción del Índice
+\RequirePackage[spanish,es-tabla]{babel}
+% Cambia "Contenido" por "Índice de Contenidos" o el nombre de tu preferencia:
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenido}}
+
+% 3. Manejo de Colores
+\RequirePackage{xcolor}
+\definecolor{iesblue}{HTML}{0F2C59}
+\definecolor{iesblueprimary}{HTML}{1A365D}   % Azul marino profundo (Institucional)
+\definecolor{iesgray}{HTML}{4A5568}          % Gris oscuro para subtítulos
+\definecolor{iesaccent}{HTML}{DD6B20}        % Toque naranja/coral sutil (Modernidad)
+
+% 4. Configuración Tipográfica (XeLaTeX + fontspec)
+\RequirePackage{fontspec}
+\setsansfont{Noto Sans}
+\newfontfamily\titlefont{Helvetica}
+\newfontfamily\bodyfont{Arial}
+\setmainfont{Arial}
+
+% 5. Paquetes para Gráficos, Fondo y Espaciado
+\RequirePackage{graphicx}
+\graphicspath{{assets/}} % Ubicación de imágenes en la carpeta assets/
+\RequirePackage{eso-pic}
+\RequirePackage{setspace}
+\RequirePackage{metalogo}
+
+% 6. Formato de Capítulos y Secciones (titlesec)
+\RequirePackage{titlesec}
+
+% Estilo para los Capítulos (\chapter)
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\bfseries\color{iesblue}} 
+  {\huge \chaptertitlename\ \thechapter}        
+  {10pt}                                        
+  {\fontsize{28pt}{34pt}\selectfont}           
+
+\titlespacing*{\chapter}{0pt}{20pt}{30pt}
+
+% Estilo para las Secciones (\section)
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries\color{iesblue}}
+  {\thesection}{1em}{}
+
+% Estilo para las Subsecciones (\subsection)
+\titleformat{\subsection}
+  {\normalfont\sffamily\large\bfseries\color{iesaccent}}
+  {\thesubsection}{1em}{}
+
+% 7. Configuración de Hipervínculos (hyperref)
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=iesblueprimary,
+    urlcolor=iesaccent,
+    citecolor=iesblueprimary,
+    pdftitle={Trabajo Académico IES IBAI},
+    pdfauthor={Francisco Javier Morales Martínez},
+    pdfsubject={Maestría en Educación},
+    pdfkeywords={Educación, Tecnología, Innovación, IES IBAI}
+}
+
+\RequirePackage{tikz}
+% ==============================================================================
+% 8. SISTEMA DE PORTADA CONFIGURABLE Y AUTOMÁTICA
+% ==============================================================================
+\RequirePackage{pgfkeys}
+
+% Definición de Variables y Valores por Defecto
+\pgfkeys{
+  /iesibai/.cd,
+  institucion/.initial={Nombre del Instituto},
+  campus/.initial={Nombre/Tipo de Campus},
+  programa/.initial={Maestría en Educación},
+  materia/.initial={Titulo de la Materia},
+  subtitulo/.initial={Un subtitulo opcional para la portada},
+  trabajo/.initial={Trabajo del x módulo},
+  alumno/.initial={Nombre del Alumno},
+  profesor/.initial={Dr. Jorge Ruiz Mondragon},
+  ubicacion/.initial={Estado, México},
+  fecha/.initial={Septiembre, 2026},
+  engine/.initial={Elaborado en \XeLaTeX},
+  logo/.initial={logo_iesibai.png},
+  fondo/.initial={redes_2.jpeg}
+}
+
+% Comandos auxiliares para leer/escribir variables
+\newcommand{\iesibaisetup}[1]{\pgfqkeys{/iesibai}{#1}}
+\newcommand{\iesibaiget}[1]{\pgfkeysvalueof{/iesibai/#1}}
+
+% Interruptor para la generación automática
+\newif\ifgenerarportada
+\generarportadatrue % Activada por defecto al cargar el paquete
+
+\newcommand{\sinportadaiesibai}{\generarportadafalse}
+
+% Comando principal para construir la Portada
+\newcommand{\portadaiesibai}[1][]{%
+  \iesibaisetup{#1}% Actualiza variables opcionales si se ingresan en el comando
+  \begin{titlepage}
+    \bodyfont
+
+    % Fondo/Marca de agua en pantalla completa
+    \AddToShipoutPictureBG*{%
+      \AtPageLowerLeft{%
+        \IfFileExists{\iesibaiget{fondo}}{%
+          \includegraphics[width=\paperwidth,height=\paperheight]{\iesibaiget{fondo}}%
+        }{}%
+      }%
+    }%
+
+    % Elemento gráfico: Línea vertical azul
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width=4pt, iesblueprimary] 
+          ([xshift=1.5cm, yshift=-2cm]current page.north west) -- 
+          ([xshift=1.5cm, yshift=2cm]current page.south west);
+    \end{tikzpicture}
+
+    % Logo institucional
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=center, xshift=-5cm, yshift=-4cm] at (current page.north east) {
+          \IfFileExists{\iesibaiget{logo}}{%
+            \includegraphics[width=6cm]{\iesibaiget{logo}}%
+          }{}%
+        };
+    \end{tikzpicture}
+
+    \flushleft
+    \vspace*{-1cm}
+
+    % --- Datos Institucionales ---
+    \begin{minipage}{0.6\textwidth}
+        \onehalfspacing
+        {\fontsize{18}{40}\selectfont\color{iesblueprimary}\textbf{\MakeUppercase{\iesibaiget{institucion}}}}\\[0.3cm]
+        {\Large\color{iesgray}\iesibaiget{campus}}\\[2cm]
+    \end{minipage}
+
+    {\fontsize{25}{35}\selectfont\color{iesgray}\iesibaiget{programa}}
+
+    \vspace{1cm}
+
+    % --- Título de la Materia y Subtítulo ---
+    {\fontsize{40}{55}\selectfont\titlefont\color{iesblueprimary} \iesibaiget{materia}}\\[0.5cm]
+    {\fontsize{20}{30}\selectfont\color{iesaccent}\textit{\iesibaiget{subtitulo}}}\\[1.5cm]
+    
+    \vfill
+
+    % --- Detalles del Trabajo y Autoría ---
+    {\Large \iesibaiget{trabajo}}\\[1.5cm]
+
+    \begin{minipage}{0.45\textwidth}
+        \large
+        \flushleft
+        \textbf{Alumno:}\\
+        \iesibaiget{alumno}\\[0.5cm]
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \large
+        \flushleft
+        \textbf{Profesor:}\\
+        \iesibaiget{profesor}
+    \end{minipage}
+
+    \vspace{2cm}
+
+    % --- Ubicación y Fecha ---
+    {\large\color{iesgray} \iesibaiget{ubicacion}}\\[0.2cm] {\large\color{iesgray} \iesibaiget{fecha}}\\[1cm]
+    {\color{iesgray} \iesibaiget{engine}}
+
+  \end{titlepage}
+  \ClearShipoutPictureBG % Limpia el fondo para las páginas de contenido
+}
+
+% Hook para llamar la portada automáticamente al iniciar el documento
+\AtBeginDocument{%
+  \ifgenerarportada
+    \portadaiesibai
+  \fi
+}
