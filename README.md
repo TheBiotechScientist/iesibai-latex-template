@@ -1,6 +1,21 @@
 # Plantilla y Paquete LaTeX - IES IBAI (`iesibai.sty`)
 
-Paquete de estilo en LaTeX para la redacción de documentos académicos del IES IBAI, configurado con soporte para **XeLaTeX**, formato **APA 7ma edición** e identidades visuales institucionales.
+**Versión:** 1.0.0  
+**Fecha:** 2026-09-27  
+**Autor:** TheBiotechScientist  
+**Licencia:** LPPL v1.3c
+
+## Descripción
+Paquete de estilo en LaTeX para la redacción de documentos académicos del IES IBAI, configurado con soporte para **XeLaTeX**, formato **APA 7ma edición** e identidades visuales institucionales. El paquete `iesibai` proporciona macros, configuración de formato y elementos de portada para la generación de documentos académicos e institucionales ajustados a los requisitos del IESIBAI.
+
+## Contenido del paquete
+- `iesibai.sty`: Archivo de estilo principal.
+- `iesibai-doc.pdf`: Documentación oficial compilada.
+- `iesibai-doc.tex`: Código fuente de la documentación.
+- `ejemplo.tex`: Documento de ejemplo mínimo.
+- `README.md`: Readme con esta información.
+- `LICENSE`: Licencia del paquete.
+- `assets/`: Recursos gráficos predeterminados (logos y fondos).
 
 ## Requisitos previos
 - Distribución TeX (TeX Live, MiKTeX o MacTeX).
@@ -17,11 +32,16 @@ Paquete de estilo en LaTeX para la redacción de documentos académicos del IES 
    \usepackage{iesibai}
    \addbibresource{referencias.bib}
    ```
+## Instalación desde CTAN
+- Desde el instalador/gestor de paquetes de su distribución instalada (MikTeX, TeXLive, MacTeX, etc.)
+- Desde el repositorio de *CTAN*, buscar el paquete `iesibai.sty` y descargar.
+- Seguir las instruciones para descarga y correcta isntalación de un paquete desde CTAN.
+
 ## Características
 1. Incluye un fondo de portada predefinido.
-2. Capos de datos opcionales para la portada.
-3. Formato predefinido para la portada, tabla de contenidos, capítulos y secciones acorde a los colores del instituto IESIBAI
-4. Incluye logos en formatos `.jpeg`, `.png` y `.svg`.
+2. Campos de datos opcionales para la portada.
+3. Formato predefinido de portada, tabla de contenidos, capítulos y secciones acorde a los colores del instituto IESIBAI
+4. Incluye logos de la institución en formatos `.jpeg`, `.png` y `.svg`.
 
 ## Ejemplo
 
@@ -37,8 +57,8 @@ Paquete de estilo en LaTeX para la redacción de documentos académicos del IES 
     programa={Maestría en Educación},
     materia={Tecnología e Innovación I},
     subtitulo={Un subtítulo interesante},
-    alumno={Nombre del Alumno},
-    profesor={Dr. TheBiotechScientist},
+    alumno={TheBiotechScientist},
+    profesor={Dr. IESIBAI},
     ubicacion={San Luis Potosí, México},
     fecha={Septiembre, 2026}
 }

@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Paquetes de Formato e Idioma ---
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{fontspec}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{metalogo}
+\usepackage{amsmath}
+
+
+
+% --- Configuración Tipográfica de la Documentación ---
+\setmainfont{Arial}
+\setsansfont{Noto Sans}
+
+% --- Colores Institucionales Reutilizados de iesibai.sty ---
+\definecolor{iesblue}{HTML}{0F2C59}
+\definecolor{iesblueprimary}{HTML}{1A365D}
+\definecolor{iesgray}{HTML}{4A5568}
+\definecolor{iesaccent}{HTML}{DD6B20}
+
+% --- Configuración de Hipervínculos ---
+\usepackage[
+    colorlinks=true,
+    linkcolor=iesblueprimary,
+    urlcolor=iesaccent,
+    citecolor=iesgray,
+    pdftitle={Documentación del paquete iesibai},
+    pdfauthor={F. Javier Morales M. (TheBiotechScientist)}
+]{hyperref}
+
+% --- Estilo para Bloques de Código ---
+\lstset{
+    language=[LaTeX]TeX,
+    basicstyle=\small\ttfamily,
+    keywordstyle=\color{iesblueprimary}\bfseries,
+    commentstyle=\color{iesgray}\itshape,
+    stringstyle=\color{iesaccent},
+    backgroundcolor=\color{gray!6},
+    frame=single,
+    framerule=0.4pt,
+    rulecolor=\color{gray!30},
+    breaklines=true,
+    tabsize=2,
+    showstringspaces=false
+}
+
+% --- Macros Auxiliares ---
+\newcommand{\pkg}[1]{\textbf{#1}}
+\newcommand{\cmd}[1]{\texttt{\textbackslash#1}}
+\newcommand{\key}[1]{\texttt{#1}}
+
+\title{%
+    \Huge \textbf{\color{iesblueprimary}El paquete \pkg{iesibai}}\\[0.3em]
+    \large Plantilla \LaTeX \ (No Oficial) para el \textbf{IESIBAI}\\[0.2em]
+    \small Manual de Usuario y Especificación Técnica
+}
+\author{\textbf{F. Javier Morales M. \textit{(TheBiotechScientist)}}\\[10pt] {\bfseries \ttfamily \href{mailto:fmoralesm87@gmail.com}{fmoralesm87@gmail.com}}}
+
+\date{\today}
+\date{Versión 1.0.0 --- 27 de septiembre de 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+El paquete \pkg{iesibai} proporciona macros, estilos tipográficos, paletas de color y una interfaz clave-valor (\emph{key-value}) para estandarizar la presentación gráfica de trabajos académicos e institucionales en el \textbf{Instituto de Estudios Superiores de la Red Iberoamericana de Academias de Investigación (IESIBAI)}.
+\end{abstract}
+
+\tableofcontents
+\vspace{0.8cm}
+\hrule
+\vspace{0.8cm}
+
+\section{Introducción}
+El objetivo principal de \pkg{iesibai} es automatizar la creación de portadas, la configuración de márgenes y el formato tipográfico de los documentos oficiales del instituto. Con este paquete, el autor puede concentrarse en la redacción del contenido mientras el sistema mantiene la coherencia gráfica requerida.
+
+\section{Requisitos del Sistema y Compilación}
+Este paquete hace uso intensivo de la gestión moderna de fuentes mediante \pkg{fontspec}. Por lo tanto, \textbf{es obligatorio compilar el documento con XeLaTeX}.
+
+\subsection{Tipografías Requeridas}
+El sistema operativo debe contar con las siguientes familias tipográficas instaladas:
+\begin{itemize}
+    \item \textbf{Arial}: Utilizada como fuente principal para el cuerpo del texto.
+    \item \textbf{Helvetica}: Aplicada en títulos de portada y elementos destacados.
+    \item \textbf{Noto Sans}: Utilizada como tipografía sin serifa auxiliar.
+\end{itemize}
+
+\subsection{Paquetes Dependientes}
+El paquete \pkg{iesibai} carga automáticamente los siguientes paquetes:
+\begin{itemize}
+    \item \pkg{geometry}: Configurado para hoja tamaño carta (\texttt{letterpaper}) con márgenes de $2.5\ \text{cm}$.
+    \item \pkg{babel}: Idioma español con soporte para tablas (\texttt{es-tabla}) y renombrado de índice a "`Contenido"'.
+    \item \pkg{xcolor}, \pkg{graphicx}, \pkg{eso-pic}, \pkg{tikz}: Para gráficos, fondos de página completa y diseño visual.
+    \item \pkg{titlesec}: Para la personalización de secciones y capítulos.
+    \item \pkg{pgfkeys}, \pkg{hyperref}, \pkg{setspace}, \pkg{metalogo}.
+\end{itemize}
+
+\section{Comandos Principales}
+
+\subsection{Configuración de Metadatos: \cmd{iesibaisetup}}
+Asigna valores a las variables institucionales. Se recomienda colocar este comando en el preámbulo del documento.
+
+\begin{lstlisting}
+\iesibaisetup{
+    institucion = {Instituto de Estudios Superiores de la Red Iberoamericana},
+    campus      = {Campus Virtual Hidalgo},
+    programa    = {Maestría en Educación},
+    materia     = {Tecnología e Innovación I},
+    subtitulo   = {Diseño de un paquete de entorno académico},
+    trabajo     = {Proyecto Final},
+    alumno      = {Nombre del Alumno},
+    profesor    = {Dr. TheBiotechScientist},
+    ubicacion   = {San Luis Potosí, México},
+    fecha       = {Septiembre, 2026}
+}
+\end{lstlisting}
+
+\subsection{Generación y Control de Portada}
+Por defecto, \pkg{iesibai} \textbf{genera automáticamente la portada} al ejecutar \texttt{\textbackslash begin\{document\}} utilizando las variables declaradas.
+
+\begin{itemize}
+    \item \cmd{sinportadaiesibai}: Desactiva la generación automática de la portada. Debe colocarse en el preámbulo si se desea omitirla.
+    \item \cmd{portadaiesibai}[opciones]: Permite compilar manualmente la portada en un punto específico del documento o pasarle opciones clave-valor directas.
+\end{itemize}
+
+\begin{lstlisting}
+% Para desactivar la portada automática:
+\sinportadaiesibai
+
+% Para invocar la portada de forma manual con cambios puntuales:
+\portadaiesibai[trabajo={Avance del Módulo II}]
+\end{lstlisting}
+
+\subsection{Lectura de Parámetros: \cmd{iesibaiget}}
+Permite recuperar en cualquier parte del texto el valor asignado a una variable:
+
+\begin{lstlisting}
+El presente reporte corresponde a la materia \iesibaiget{materia}.
+\end{lstlisting}
+
+\section{Opciones de Claves (\emph{Keys})}
+
+La Tabla~\ref{tab:claves} lista las claves disponibles en \cmd{iesibaisetup}, sus valores por defecto y su descripción.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Clave} & \textbf{Valor por Defecto} & \textbf{Descripción} \\
+\midrule
+\key{institucion} & \textit{Nombre del Instituto} & Nombre oficial de la institución. \\
+\key{campus}      & \textit{Nombre/Tipo de Campus} & Sede o modalidad académica. \\
+\key{programa}    & \textit{Maestría en Educación} & Programa o posgrado. \\
+\key{materia}     & \textit{Titulo de la Materia}  & Nombre de la asignatura. \\
+\key{subtitulo}   & \textit{Un subtitulo opcional...}& Subtítulo explicativo para la portada. \\
+\key{trabajo}     & \textit{Trabajo del x módulo}  & Tipo de entrega o proyecto. \\
+\key{alumno}      & \textit{Nombre del Alumno}     & Nombre del estudiante. \\
+\key{profesor}    & \textit{Dr. Jorge Ruiz...}     & Nombre del docente/asesor. \\
+\key{ubicacion}   & \textit{Estado, México}        & Ciudad y estado. \\
+\key{fecha}       & \textit{Septiembre, 2026}      & Fecha del documento. \\
+\key{engine}      & \textit{Elaborado en \XeLaTeX} & Nota sobre el motor de compilación. \\
+\key{logo}        & \texttt{assets/logo\_iesibai.png} & Ruta del logotipo institucional. \\
+\key{fondo}       & \texttt{assets/fondo\_...jpeg} & Ruta de la imagen de fondo. \\
+\bottomrule
+\end{tabular}
+\caption{Claves configurables con el comando \cmd{iesibaisetup}.}
+\label{tab:claves}
+\end{table}
+
+\section{Paleta de Colores Institucionales}
+El paquete define cuatro colores globales en modelo HTML que pueden emplearse para personalizar tablas o cajas de texto en el documento:
+
+\begin{itemize}
+    \item \textbf{iesblueprimary} (\texttt{\#1A365D}): Azul marino profundo principal (utilizado en títulos y acentos institucionales).
+    \item \textbf{iesblue} (\texttt{\#0F2C59}): Azul oscuro complementario.
+    \item \textbf{iesaccent} (\texttt{\#DD6B20}): Naranja/coral sutil para resaltar subtítulos y enlaces.
+    \item \textbf{iesgray} (\texttt{\#4A5568}): Gris oscuro para textos secundarios y detalles de portada.
+\end{itemize}
+
+\section{Documento de Ejemplo Mínimo}
+
+A continuación se presenta un código funcional completo:
+
+\begin{lstlisting}
+\documentclass[12pt]{article}
+\usepackage{iesibai}
+
+\iesibaisetup{
+    materia   = {Tecnología e Innovación I},
+    subtitulo = {Implementación de Entornos LaTeX},
+    alumno    = {TheBiotechScientist},
+    profesor  = {Dr. Jorge Ruiz Mondragón},
+    fecha     = {Septiembre, 2026}
+}
+
+\begin{document}
+% La portada se inserta automáticamente al iniciar el documento.
+
+\section{Introducción}
+Este es el inicio del cuerpo del documento redactado con la tipografía y márgenes estandarizados de IESIBAI.
+
+\end{document}
+\end{lstlisting}
+
+\section{Licencia}
+Este paquete se distribuye bajo la licencia \textbf{\LaTeX\ Project Public License (LPPL)} versión 1.3c o posterior. Para más detalles, consulte: \url{https://www.latex-project.org/lppl.txt}.
+
+\end{document}

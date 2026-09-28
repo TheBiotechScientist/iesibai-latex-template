@@ -1,6 +1,30 @@
-% !TEX root = producto_1.tex
+%% iesibai.sty
+%% Copyright (2026) TheBiotechScientist
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008-05-04 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is F. Javier Morales M. (TheBiotechScientist)
+%
+% This work consists of the files
+%   - iesibai.sty
+%   - iesibai-doc.tex
+%   - iesibai-doc.pdf
+%   - referencias.bib
+%   - README.md
+%   - LICENSE
+%
+% and the files in directory assets/.
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{iesibai}[2026/09/19 Estilo Institucional IES IBAI]
+\ProvidesPackage{iesibai}[2026/09/27 v1.0.0 Plantilla Institucional IESIBAI (No Oficial)]
 
 % 1. Configuración de márgenes y tamaño de página
 \RequirePackage[letterpaper, margin=2.5cm]{geometry}
@@ -36,38 +60,26 @@
 % Estilo para los Capítulos (\chapter)
 \titleformat{\chapter}[display]
   {\normalfont\sffamily\bfseries\color{iesblue}} 
-  {\huge \chaptertitlename\ \thechapter}        
+  {\LARGE \chaptertitlename\ \thechapter}        
   {10pt}                                        
-  {\fontsize{28pt}{34pt}\selectfont}           
+  {\fontsize{20pt}{30pt}\selectfont}           
 
 \titlespacing*{\chapter}{0pt}{20pt}{30pt}
 
 % Estilo para las Secciones (\section)
 \titleformat{\section}
   {\normalfont\sffamily\Large\bfseries\color{iesblue}}
-  {\thesection}{1em}{}
+  {\thesection}{1em}{\fontsize{16}{20}\selectfont}
 
 % Estilo para las Subsecciones (\subsection)
 \titleformat{\subsection}
   {\normalfont\sffamily\large\bfseries\color{iesaccent}}
-  {\thesubsection}{1em}{}
+  {\large \thesubsection}{1em}{}
 
-% 7. Configuración de Hipervínculos (hyperref)
-\RequirePackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=iesblueprimary,
-    urlcolor=iesaccent,
-    citecolor=iesblueprimary,
-    pdftitle={Trabajo Académico IES IBAI},
-    pdfauthor={Francisco Javier Morales Martínez},
-    pdfsubject={Maestría en Educación},
-    pdfkeywords={Educación, Tecnología, Innovación, IES IBAI}
-}
 
 \RequirePackage{tikz}
 % ==============================================================================
-% 8. SISTEMA DE PORTADA CONFIGURABLE Y AUTOMÁTICA
+% 7. SISTEMA DE PORTADA CONFIGURABLE Y AUTOMÁTICA
 % ==============================================================================
 \RequirePackage{pgfkeys}
 % Definición de Variables y Valores por Defecto
@@ -86,6 +98,19 @@
   engine/.initial={Elaborado en \XeLaTeX},
   logo/.initial={assets/logo_iesibai.png},
   fondo/.initial={assets/fondo_portada_redes_2.jpeg}
+}
+
+% 8. Configuración de Hipervínculos (hyperref)
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=iesblueprimary,
+    urlcolor=iesaccent,
+    citecolor=iesblueprimary,
+    pdftitle={Trabajo Académico IES IBAI},
+    pdfauthor={Francisco Javier Morales Martínez},
+    pdfsubject={Maestría en Educación},
+    pdfkeywords={Educación, Tecnología, Innovación, IES IBAI}
 }
 
 % Comandos auxiliares para leer/escribir variables
@@ -136,7 +161,7 @@
     \begin{minipage}{0.6\textwidth}
         \onehalfspacing
         {\fontsize{18}{40}\selectfont\color{iesblueprimary}\textbf{\MakeUppercase{\iesibaiget{institucion}}}}\\[0.3cm]
-        {\Large\color{iesgray}\iesibaiget{campus}}\\[2cm]
+        {\LARGE\color{iesaccent}\iesibaiget{campus}}\\[2cm]
     \end{minipage}
 
     {\fontsize{25}{35}\selectfont\color{iesgray}\iesibaiget{programa}}
@@ -145,12 +170,12 @@
 
     % --- Título de la Materia y Subtítulo ---
     {\fontsize{40}{55}\selectfont\titlefont\color{iesblueprimary} \iesibaiget{materia}}\\[0.5cm]
-    {\fontsize{20}{30}\selectfont\color{iesaccent}\textit{\iesibaiget{subtitulo}}}\\[1.5cm]
+    {\fontsize{20}{30}\selectfont\color{iesaccent}\bfseries \textit{\iesibaiget{subtitulo}}}
     
     \vfill
 
     % --- Detalles del Trabajo y Autoría ---
-    {\Large \iesibaiget{trabajo}}\\[1.5cm]
+    {\Huge \iesibaiget{trabajo}}\\[2cm]
 
     \begin{minipage}{0.45\textwidth}
         \large
